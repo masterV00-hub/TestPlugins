@@ -63,14 +63,14 @@ class AQfilmProvider : MainAPI() {
         val file = Regex("""file:"([^"]+)"""").find(script)?.groupValues?.get(1) ?: return false
         
         callback.invoke(
-            ExtractorLink(
-                this.name,
-                this.name,
-                file,
-                "",
-                Qualities.Unknown.value,
-                isM3u8 = file.contains("m3u8")
-            )
+            newExtractorLink(
+                name = this.name,
+                source = this.name,
+                url = file
+            ) {
+                this.quality = Qualities.Unknown.value
+                this.isM3u8 = file.contains("m3u8")
+            }
         )
         return true
     }

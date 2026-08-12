@@ -65,18 +65,17 @@ class FlowindProvider : MainAPI() {
         subtitleCallback: (SubtitleFile) -> Unit,
         callback: (ExtractorLink) -> Unit
     ): Boolean {
-        // Flowind often links directly to external players like Videa
         if (data.contains("videa.hu")) {
             val id = data.substringAfter("videa.hu/videok/").substringBefore("-")
             callback.invoke(
-                ExtractorLink(
-                    "Videa",
-                    "Videa",
-                    "https://videa.hu/videok/film-animacio/$id",
-                    "",
-                    Qualities.Unknown.value,
-                    isM3u8 = false
-                )
+                newExtractorLink(
+                    name = "Videa",
+                    source = "Videa",
+                    url = "https://videa.hu/videok/film-animacio/$id"
+                ) {
+                    this.quality = Qualities.Unknown.value
+                    this.isM3u8 = false
+                }
             )
             return true
         }

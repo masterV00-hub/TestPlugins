@@ -69,14 +69,14 @@ class ArabicToonsProvider : MainAPI() {
         val videoUrl = document.selectFirst("video")?.attr("src") ?: return false
         
         callback.invoke(
-            ExtractorLink(
-                this.name,
-                this.name,
-                videoUrl,
-                "",
-                Qualities.Unknown.value,
-                isM3u8 = videoUrl.contains("m3u8")
-            )
+            newExtractorLink(
+                name = this.name,
+                source = this.name,
+                url = videoUrl
+            ) {
+                this.quality = Qualities.Unknown.value
+                this.isM3u8 = videoUrl.contains("m3u8")
+            }
         )
         return true
     }
